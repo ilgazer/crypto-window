@@ -1,25 +1,46 @@
 #include "mytable.h"
+#include<iostream>
+#include<fstream>
+
+QUrl MyTable::get_url()
+{
+    char envVar[16] = "MYCRYPTOCONVERT";
+    QString input_file_name(qgetenv(envVar));
+
+    std::ifstream in;
+    in.open(input_file_name.toStdString());
+    std::string s;
+    QString urlNameBegin("https://api.coingecko.com/api/v3/simple/price?ids=");
+    QString coinList("");
+    while(in>>s)
+    {
+        s += ",";
+        coinList.append(s.c_str());
+    }
+    in.close();
+    QString urlNameEnd("&vs_currencies=usd,eur,gbp");
+    QString urlName = urlNameBegin + coinList + urlNameEnd;
+    //"https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,litecoin&vs_currencies=usd,eur,gbp"
+    qDebug() << "constructed url: "<<urlName <<"\n";
+    return QUrl(urlName);
+
+}
 
 MyTable::MyTable()
-{
-    QUrl url("https://142.250.187.110");
+{   
+    QUrl url(get_url());
     reply = qnam.get(QNetworkRequest(url));
     connect(reply, &QNetworkReply::finished, this, &MyTable::downloadFinished);
-    connect(&qnam, &QNetworkAccessManager::sslErrors, this, &MyTable::sslError);
+  //  connect(&qnam, &QNetworkAccessManager::sslErrors, this, &MyTable::sslError);
 }
 
 void MyTable::downloadFinished(){
     std::cout << "downloaded!" << std::endl;
+    qDebug() << (QString)reply->readAll();
     QByteArray bytes = reply->readAll();
     QJsonDocument doc = QJsonDocument::fromJson(bytes);
 
     MyModel myModel(doc.object());
     setModel(&myModel);
     resizeColumnsToContents();
-}
-
-void MyTable::sslError(){
-    std::cout << "errored!\n" <<reply->errorString().toStdString() << std::endl;
-    reply->dumpObjectInfo();
-    reply->dumpObjectTree();
 }
