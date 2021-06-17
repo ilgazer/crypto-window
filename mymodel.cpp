@@ -5,7 +5,6 @@ MyModel::MyModel(QJsonObject jsonObject, QObject *parent)
 {
     for(QString &key:jsonObject.keys()){
         QJsonObject obj = jsonObject.value(key).toObject();
-        QJsonValue usd = obj.value("usd");
         tableData.push_back(std::array<QString, 4>{
                                 key,
                                 QString::number(obj.value("usd").toDouble()),

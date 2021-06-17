@@ -29,7 +29,6 @@ private slots:
     void symbolsDownloadFinished();
 public:
     MyTable(QSet<QString> nameSet);
-    QUrl getUrl();
 };
 
 #endif // MYTABLE_H

@@ -4,43 +4,40 @@
 #include<QFile>
 
 // returns names or symbols of coins in the input file as a QSet<QString>
-QSet<QString> get_input_coin_names()
+QSet<QString> getInputCoinNames()
 {
     // reading value of environment variable: MYCRYPTOCONVERT
     char envVar[16] = "MYCRYPTOCONVERT";
-    QString input_file_name(qgetenv(envVar));
+    QString inputFileName(qgetenv(envVar));
 
     // opening the input file
-    QFile input_file(input_file_name);
-    input_file.open(QIODevice::ReadOnly | QIODevice::Text);
+    QFile inputFile(inputFileName);
+    inputFile.open(QIODevice::ReadOnly | QIODevice::Text);
 
     // adding coin names/symbols to QSet coinList
     QSet<QString> coinList;
     while(true)
     {
         // read coin name
-         QString coin_name(input_file.readLine());
+         QString coinName(inputFile.readLine());
          // if name of coin is nothing then we are at the end of file
-         if(coin_name.size() == 0)break;
+         if(coinName.size() == 0)break;
          //erase unnecessary \n s at the end
-         int n = coin_name.size() - 1;
-         while(coin_name.data()[n] == '\n')
-             coin_name.remove(n,coin_name.size());
+         int n = coinName.size() - 1;
+         while(coinName.data()[n] == '\n')
+             coinName.remove(n,coinName.size());
         //insert this coin into coin_list
-         coinList.insert(coin_name);
+         coinList.insert(coinName);
     }
     //closing the input file
-    input_file.close();
-    //"https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,litecoin&vs_currencies=usd,eur,gbp"
-   // for(QString s : coinList)
-     //   qDebug() << s;
+    inputFile.close();
     return coinList;
-
 }
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    MyTable table;
+    auto names = getInputCoinNames();
+    MyTable table(names);
     return a.exec();
 }
