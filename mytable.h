@@ -19,6 +19,7 @@ class MyTable : public QTableView
 private:
     QNetworkAccessManager qnam;
     QNetworkReply *reply;
+    MyModel *myModel;
 private slots:
     void downloadFinished();
 public:

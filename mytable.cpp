@@ -22,7 +22,7 @@ QUrl MyTable::get_url()
     QString urlName = urlNameBegin + coinList + urlNameEnd;
     //"https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,litecoin&vs_currencies=usd,eur,gbp"
     qDebug() << "constructed url: "<<urlName <<"\n";
-    return QUrl(urlName);
+    return QUrl("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,litecoin&vs_currencies=usd,eur,gbp");
 
 }
 
@@ -36,11 +36,12 @@ MyTable::MyTable()
 
 void MyTable::downloadFinished(){
     std::cout << "downloaded!" << std::endl;
-    qDebug() << (QString)reply->readAll();
     QByteArray bytes = reply->readAll();
-    QJsonDocument doc = QJsonDocument::fromJson(bytes);
-
-    MyModel myModel(doc.object());
-    setModel(&myModel);
+    qDebug() << bytes.data();
+    QJsonDocument doc = QJsonDocument::fromJson(bytes.data());
+    QJsonObject obj = doc.object();
+    myModel = new MyModel(obj);
+    setModel(myModel);
     resizeColumnsToContents();
+    show();
 }
