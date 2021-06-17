@@ -7,10 +7,13 @@
 #include <QObject>
 #include <QTableView>
 #include <QJsonDocument>
+#include <QJsonArray>
+#include <QJsonObject>
 #include <QtNetwork/QNetworkRequest>
 #include <QtNetwork/QNetworkReply>
 #include <QtNetwork/QNetworkAccessManager>
 #include <QUrl>
+#include <QUrlQuery>
 #include <iostream>
 
 class MyTable : public QTableView
@@ -20,11 +23,13 @@ private:
     QNetworkAccessManager qnam;
     QNetworkReply *reply;
     MyModel *myModel;
+    QSet<QString> nameSet;
 private slots:
-    void downloadFinished();
+    void tableDownloadFinished();
+    void symbolsDownloadFinished();
 public:
-    MyTable();
-    QUrl get_url();
+    MyTable(QSet<QString> nameSet);
+    QUrl getUrl();
 };
 
 #endif // MYTABLE_H
