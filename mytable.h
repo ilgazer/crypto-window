@@ -21,9 +21,9 @@ private:
     QNetworkReply *reply;
 private slots:
     void downloadFinished();
-    void sslError();
 public:
     MyTable();
+    QUrl get_url();
 };
 
 #endif // MYTABLE_H
