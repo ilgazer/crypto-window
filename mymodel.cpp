@@ -5,10 +5,10 @@
  * \param currencies is the list of \class CryptoInfo objects that correspond to the target cryptocurrencies
  * \param parent
  */
-MyModel::MyModel(QVector<CryptoInfo> currencies, QObject *parent)
+MyModel::MyModel(const QVector<CryptoInfo> currencies, QObject *parent)
     : QAbstractTableModel(parent)
 {
-    for(CryptoInfo &currency:currencies){
+    for(const CryptoInfo &currency:currencies){
         tableData.push_back(std::array<QString, 4>{
                                 currency.name,
                                 QString::number(currency.usd),
