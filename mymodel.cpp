@@ -5,22 +5,11 @@
  * \param currencies is the list of \class CryptoInfo objects that correspond to the target cryptocurrencies
  * \param parent
  */
-MyModel::MyModel(const QVector<CryptoInfo> currencies, QObject *parent)
-    : QAbstractTableModel(parent)
-{
-    for(const CryptoInfo &currency:currencies){
-        tableData.push_back(std::array<QString, 4>{
-                                currency.name,
-                                QString::number(currency.usd),
-                                QString::number(currency.eur),
-                                QString::number(currency.gbp)
-                            });
-    }
-}
+MyModel::MyModel(const QVector<CryptoInfo> tableData, QObject *parent):QAbstractTableModel(parent), tableData(tableData){}
 
 int MyModel::rowCount(const QModelIndex & /*parent*/) const
 {
-   return tableData.size();
+    return tableData.size();
 }
 
 int MyModel::columnCount(const QModelIndex & /*parent*/) const
@@ -41,7 +30,18 @@ QVariant MyModel::headerData(int section, Qt::Orientation orientation, int role)
 
 QVariant MyModel::data(const QModelIndex &index, int role) const
 {
-    if (role == Qt::DisplayRole)
-       return tableData[index.row()][index.column()];
+    if (role == Qt::DisplayRole){
+        CryptoInfo currency= tableData[index.row()];
+        switch(index.column()){
+        case 0:
+            return currency.name;
+        case 1:
+            return QString::number(currency.usd);
+        case 2:
+            return QString::number(currency.eur);
+        case 3:
+            return QString::number(currency.gbp);
+        }
+    }
     return QVariant();
 }

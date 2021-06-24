@@ -13,7 +13,7 @@ class MyModel : public QAbstractTableModel
     Q_OBJECT
 private:
     const QString CURRENCY_TYPES[4]{"", "USD", "EUR", "GBP"};
-    QVector<std::array<QString, 4>> tableData;
+    QVector<CryptoInfo> tableData;
 public:
     MyModel(const QVector<CryptoInfo> currencies, QObject *parent = nullptr);
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;

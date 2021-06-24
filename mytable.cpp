@@ -8,6 +8,7 @@
  */
 MyTable::MyTable(QSet<QString> targetSet): targetSet(targetSet)
 {   
+    setWindowTitle("Crypto-Window");
     setSizeAdjustPolicy(SizeAdjustPolicy::AdjustToContents);
 
     QUrl url("https://api.coingecko.com/api/v3/coins/list");
