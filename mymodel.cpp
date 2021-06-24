@@ -1,15 +1,15 @@
 #include "mymodel.h"
 
-MyModel::MyModel(QJsonObject jsonObject, QObject *parent)
+MyModel::MyModel(QVector<CryptoInfo> currencies, QObject *parent)
     : QAbstractTableModel(parent)
 {
-    for(QString &key:jsonObject.keys()){
-        QJsonObject obj = jsonObject.value(key).toObject();
+    for(CryptoInfo &currency:currencies){
         tableData.push_back(std::array<QString, 4>{
-                                key,
-                                QString::number(obj.value("usd").toDouble()),
-                                QString::number(obj.value("eur").toDouble()),
-                                QString::number(obj.value("gbp").toDouble())});
+                                currency.name,
+                                QString::number(currency.usd),
+                                QString::number(currency.eur),
+                                QString::number(currency.gbp)
+                            });
     }
 }
 

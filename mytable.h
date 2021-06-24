@@ -2,6 +2,7 @@
 #define MYTABLE_H
 
 #include "mymodel.h"
+#include "cryptonames.h"
 
 #include <QTableView>
 #include <QObject>
@@ -24,6 +25,7 @@ private:
     QNetworkReply *reply;
     MyModel *myModel;
     QSet<QString> nameSet;
+    QMap<QString, CryptoNames> cryptoMap;
 private slots:
     void tableDownloadFinished();
     void symbolsDownloadFinished();
