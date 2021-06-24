@@ -5,7 +5,9 @@
 #include <QString>
 
 
-
+/*!
+ * \brief The CryptoNames class is a passive data structure that contains the name, id and symbol of a cryptocurrency
+ */
 class CryptoNames
 {
 public:
@@ -17,6 +19,9 @@ public:
     QString symbol;
 };
 
+/*!
+ * \brief The CryptoInfo class is a passive data structure that contains the naming information of a cryptocurrency along with its exchange rates with GBP, EUR and USD
+ */
 class CryptoInfo : public CryptoNames
 {
 public:

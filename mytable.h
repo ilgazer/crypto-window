@@ -17,6 +17,9 @@
 #include <QUrlQuery>
 #include <iostream>
 
+/*!
+ * \brief The MyTable is the GUI that retrieves and displays the exchange rate information of the target cryptocurrencies.
+ */
 class MyTable : public QTableView
 {
     Q_OBJECT
@@ -24,13 +27,13 @@ private:
     QNetworkAccessManager qnam;
     QNetworkReply *reply;
     MyModel *myModel;
-    QSet<QString> nameSet;
+    QSet<QString> targetSet;
     QMap<QString, CryptoNames> cryptoMap;
 private slots:
     void tableDownloadFinished();
     void symbolsDownloadFinished();
 public:
-    MyTable(QSet<QString> nameSet);
+    MyTable(QSet<QString> targetSet);
 };
 
 #endif // MYTABLE_H

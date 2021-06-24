@@ -5,6 +5,9 @@
 #include <QJsonObject>
 #include "cryptonames.h"
 
+/*!
+ * \brief The MyModel class defines the way cryptocurrency exchange rate data will be displayed on screen. It further contains the names of the headers.
+ */
 class MyModel : public QAbstractTableModel
 {
     Q_OBJECT
