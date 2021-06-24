@@ -15,7 +15,6 @@
 #include <QtNetwork/QNetworkAccessManager>
 #include <QUrl>
 #include <QUrlQuery>
-#include <iostream>
 
 /*!
  * \brief The MyTable is the GUI that retrieves and displays the exchange rate information of the target cryptocurrencies.

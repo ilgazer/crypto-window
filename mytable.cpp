@@ -26,7 +26,6 @@ MyTable::MyTable(QSet<QString> targetSet): targetSet(targetSet)
 
 void MyTable::symbolsDownloadFinished()
 {
-    std::cout << "symbols!" << std::endl;
     QByteArray bytes = reply->readAll();
     QJsonDocument doc = QJsonDocument::fromJson(bytes.data());
     QJsonArray arr = doc.array();
@@ -56,7 +55,6 @@ void MyTable::symbolsDownloadFinished()
 
 void MyTable::tableDownloadFinished()
 {
-    std::cout << "table!" << std::endl;
     QByteArray bytes = reply->readAll();
     QJsonDocument doc = QJsonDocument::fromJson(bytes.data());
     QJsonObject obj = doc.object();
